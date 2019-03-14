@@ -41,7 +41,7 @@ int empiler(pile_t *p, element_pile valeur)
     return reussi;
 }
 
-void depiler(pile_t *p, int *res, int *reussi)
+void depiler(pile_t *p, element_pile *res, int *reussi)
 {
     *reussi = !estVide(p);
     if(reussi)
@@ -51,7 +51,7 @@ void depiler(pile_t *p, int *res, int *reussi)
     }   
 }
 
-void sommet(pile_t *p, int *res, int *reussi)
+void sommet(pile_t *p, element_pile *res, int *reussi)
 {
     *reussi = !estVide(p);
     if(reussi)

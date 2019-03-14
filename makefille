@@ -1,0 +1,13 @@
+cflags = -Wall -Wextra -g
+
+all: main.o lch.o date.o
+	gcc *.o -o main
+
+main.o: main.c
+	gcc -c main.c $(cflags)
+
+lch.o: lch.c
+	gcc -c lch.c $(cflags)
+
+date.o: date.c
+	gcc -c date.c $(cflags)
