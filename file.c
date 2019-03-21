@@ -17,7 +17,7 @@ file_t* initialisation(int tailleMaxUser)
             nouv->tailleMax = tailleMaxUser;
             nouv->compteur = 0;
             nouv->rangPremier = 0;
-            nouv->rangDernier = tailleMaxUser-1;
+            nouv->rangDernier = 0;
         }
         
     }
