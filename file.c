@@ -1,5 +1,24 @@
 #include "file.h"
 
+/*---------------------------------------------------------------
+* initialisation        Initialise une file
+*
+* Entrees: tailleMaxUser, un entier contenant la taille maximale de
+*                         la pile, choisit par l'utilisateur
+*
+* Sortie: adresse d'une nouvelle file allouee
+*
+* On alloue un espace mémoire de la taille d'un element "file" et on
+* initialise ses champs dont un tableau que l'on initialise grâce au
+* données passée en argument.
+*
+* Lexique: nouv, pointeur sur le nouvel élément que l'on creer et
+* que l'on initialise
+*
+*---------------------------------------------------------------
+*/
+
+
 
 file_t* initialisation(int tailleMaxUser)
 {
@@ -24,15 +43,49 @@ file_t* initialisation(int tailleMaxUser)
     return nouv;
 }
 
+
+/*---------------------------------------------------------------
+* fileVide      Verifie si la file est vide
+*
+* Entree: file, adresse d'un pointeur de file
+*
+* Retourne un entier positif si le compteur de la file est egal à 0
+* et un entier nul sinon
+*--------------------------------------------------------------- 
+*/
+
+
 int fileVide(file_t* file)
 {
     return !(file->compteur);
 }
 
+
+/*---------------------------------------------------------------
+* filePlein      Verifie si la file est pleine
+*
+* Entree: file, adresse d'un pointeur de file
+*
+* Retourne un entier positif si le compteur de la file est egal à 
+* la taille maximal de celle ci et un entier nul sinon
+*--------------------------------------------------------------- 
+*/
+
+
 int filePlein(file_t* file)
 {
     return (file->compteur == file->tailleMax);
 }
+
+/*---------------------------------------------------------------
+* freedom        Libere la file
+* 
+* Entree: file, adresse d'un pointeur de file
+*  
+* Libere le tableau contenu dans l'element file et libere la file
+* elle meme par la suite
+*-------------------------------------------------------------------------
+*/ 
 
 void freedom(file_t* file)
 {
@@ -40,7 +93,24 @@ void freedom(file_t* file)
     free(file);
 }
 
-int entree(file_t* file, int val)
+
+/*---------------------------------------------------------------
+* entree         Insere un element dans la file
+*
+* Entree: file, adresse d'un pointeur de file
+*         val, variable de type T contenant l'element que l'on 
+*         veut inserer
+*
+* Sortie: bienPasse, booleen permettant de verifier si l'insertion
+*         ses bien passee ou pas
+*
+* Insere un element val dans le tableau de la file à la postion
+* du dernier rang si ce tableau n'est pas plein
+*-------------------------------------------------------------------------
+*/
+
+
+int entree(file_t* file, T val)
 {
     int bienPasse;
     if(!filePlein(file))
@@ -54,6 +124,24 @@ int entree(file_t* file, int val)
     
     return bienPasse;
 }
+
+
+/*---------------------------------------------------------------
+* sortie         Retire un element dans la file
+*
+* Entree: file, adresse d'un pointeur de file
+*         val, pointeur sur un element de type T qui va contenir
+*              la valeur retiree
+*
+* Sortie: bienPasse, booleen permettant de verifier si l'insertion
+*         ses bien passee ou pas
+*
+* Retire un element dans le tableau de la file à la postion
+* du premier rang si ce tableau n'est pas vide et le stocke à 
+* l'adresse pointee par val
+*-------------------------------------------------------------------------
+*/
+
 
 int sortie(file_t* file, T* val)
 {
