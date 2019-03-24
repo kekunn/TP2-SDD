@@ -22,23 +22,29 @@
 
 file_t* initialisation(int tailleMaxUser)
 {
-    file_t* nouv=(file_t*)malloc (sizeof(file_t));
-    if (nouv != NULL)
+    file_t* nouv = NULL;
+
+    if ((tailleMaxUser) > 0)//La file doit au moins pouvoir contenir un element
     {
-        nouv->tab=(int*) malloc (tailleMaxUser*sizeof(int));
-        if(nouv->tab == NULL)
+        nouv = (file_t*)malloc (sizeof(file_t));
+
+        if (nouv != NULL)
         {
-            free (nouv);
-            nouv = NULL;
+            nouv->tab=(int*) malloc (tailleMaxUser*sizeof(int));
+            if(nouv->tab == NULL)
+            {
+                free (nouv);
+                nouv = NULL;
+            }
+            else
+            {
+                nouv->tailleMax = tailleMaxUser;
+                nouv->compteur = 0;
+                nouv->rangPremier = 0;
+                nouv->rangDernier = 0;
+            }
+            
         }
-        else
-        {
-            nouv->tailleMax = tailleMaxUser;
-            nouv->compteur = 0;
-            nouv->rangPremier = 0;
-            nouv->rangDernier = 0;
-        }
-        
     }
     return nouv;
 }
@@ -49,7 +55,7 @@ file_t* initialisation(int tailleMaxUser)
 *
 * Entree: file, adresse d'un pointeur de file
 *
-* Retourne un entier positif si le compteur de la file est egal à 0
+* Retourne un entier non nul si le compteur de la file est egal à 0
 * et un entier nul sinon
 *--------------------------------------------------------------- 
 */
@@ -66,7 +72,7 @@ int fileVide(file_t* file)
 *
 * Entree: file, adresse d'un pointeur de file
 *
-* Retourne un entier positif si le compteur de la file est egal à 
+* Retourne un entier non nul si le compteur de la file est egal à 
 * la taille maximal de celle ci et un entier nul sinon
 *--------------------------------------------------------------- 
 */

@@ -8,15 +8,35 @@ int main()
     int tab[4] = {1, 2, 3};
     
     printf("\n\nTRUC RECURSIF\n");
-    TRUC(0, 3, tab);
+    TRUC_rec(1, 3, tab);
 
     printf("\n\nTRUC ITERATIF\n");
-    TRUC_ite(0, 3, tab);
+    TRUC_ite(1, 3, tab);
 
-    pile_t * p = init_pile(2);
-    if (estVide(p))
+    pile_t * p = initPile(1);
+    if(p)
     {
-        printf("pile vide\n");
+        if (pileVide(p))
+        {
+            printf("pile vide\n");
+        }
+
+        if (!empiler(p, 1))
+        {
+            printf("pile pleine\n");
+        }
+
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        printf("%d\n", pilePlein(p));
+        
+        libererPile(&p);
     }
 
     return 0;
