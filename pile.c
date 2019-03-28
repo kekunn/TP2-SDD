@@ -120,11 +120,12 @@ int empiler(pile_t *p, element_pile valeur)
 void depiler(pile_t *p, element_pile *res, int *reussi)
 {
     *reussi = !pileVide(p);
-    if(reussi)
+
+    if(*reussi)
     {
         *res = (p->valeurs)[p->rang_sommet];
         p->rang_sommet = p->rang_sommet - 1;
-    }   
+    }
 }
 
 

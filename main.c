@@ -120,7 +120,7 @@ int main()
     file_t* file = initialisation(taille_file);
     printf("\n\n");
 
-    if(file == NULL)
+    if(!file)
     {
         printf("Initialisation de la file echoué.");
     }
@@ -149,6 +149,7 @@ int main()
         {
             entree(file, i);
         }
+
         printf("Affichage de la file:\n\n");
         afficherFile(file);
 
@@ -163,7 +164,7 @@ int main()
         }  
 
 
-        printf("\n\n\n\n");
+        printf("\n\n");
         printf("Vidage de la file...\n\n");
         for(i = 0; i < taille_file; i++)
         {
@@ -198,7 +199,7 @@ int main()
 
 
     pile_t    * p2 = initPile(6);
-    if (p)
+    if (p2)
     {
 
         empiler(p2, 1);
@@ -207,7 +208,7 @@ int main()
         empiler(p2, 33); 
         empiler(p2, 2); 
 
-        int         reussi;
+        int         reussi = 1;
         int         valeur_recup;
         file_t    * f = initialisation(p2->rang_sommet+1); //On initialise la file avec le nombre maximum d'element qu'elle contiendra
 
@@ -217,25 +218,51 @@ int main()
             printf("\nPile avant : \n");
             afficherPile(p2);
 
-            while(!pileVide(p2))
+            while(!pileVide(p2) && reussi)
             {
                 depiler(p2, &valeur_recup, &reussi);
-                entree(f, valeur_recup);
+
+                if (reussi)
+                {
+                    entree(f, valeur_recup);   
+                }
+                else
+                {
+                    printf("Une erreur est survenu\n");
+                }
             }
 
-            while(!fileVide(f))
+            while(!fileVide(f) && reussi)
             {
-                sortie(f, &valeur_recup);
-                empiler (p2, valeur_recup);
+                if(sortie(f, &valeur_recup))
+                {
+                    empiler (p2, valeur_recup);
+                }
+                else
+                {
+                    printf("Une erreur est survenu\n");
+                    reussi = 0;
+                }
             }
 
-            printf("\n\nPile après : \n");
-            afficherPile(p2);
+            if (reussi)
+            {
+                printf("\n\nPile après : \n");
+                afficherPile(p2);
 
-            freedom(f);
+                freedom(f);
+            }
+        }
+        else
+        {
+            printf("Probeleme d'initialisation de la file\n");
         }
 
         libererPile (p2);
+    }
+    else
+    {
+        printf("Probleme d'initialisation de la piel\n");
     }
 
     return 0;
