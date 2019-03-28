@@ -21,12 +21,14 @@ int main()
 
     printf("\n\n=====================TEST PILE=====================\n\n");
 
-    pile_t * p = initPile(6);
+    int taille_pile = 6;
+    pile_t * p = initPile(taille_pile);
 
     if(p)
     {
         int ok;
         int temp;
+        int i;
 
         if (pileVide(p))
         {
@@ -45,12 +47,30 @@ int main()
             printf("Pile vide\n");
         }
 
-        empiler(p, 1);
-        empiler(p, 8); 
-        empiler(p, 12); 
-        empiler(p, 33); 
-        empiler(p, 2); 
-        empiler(p, 17);
+        if(!empiler(p, 1))
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }
+        if(!empiler(p, 8) )
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }
+        if(!empiler(p, 12) )
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }
+        if(!empiler(p, 33))
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }
+        if(!empiler(p, 2))
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        } 
+        if(!empiler(p, 17))
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }
 
         if(pilePlein(p))
         {
@@ -66,12 +86,26 @@ int main()
         }  
         
         sommet(p, &temp, &ok);
-
-
-
         if(ok)
         {
             printf("\nValeur du sommet de la pile: %d", temp);
+        }
+
+        printf("\n\n");
+        printf("Vidage de la pile...\n\n");
+        for(i = 0; i < taille_pile; i++)
+        {
+            depiler (p, &temp, &ok);
+
+            if(ok)
+            {
+                afficherPile(p);
+                printf("La valeur sortie est: %d\n\n", temp);
+            }
+            else
+            {
+                printf("Oups une erreur est survenue.\n\n");
+            }
         }
 
         libererPile(p);
@@ -82,8 +116,10 @@ int main()
 
     printf("\n\n=====================TEST FILE=====================\n\n");
 
-    file_t* file = initialisation(8);
+    int taille_file = 8;
+    file_t* file = initialisation(taille_file);
     printf("\n\n");
+
     if(file == NULL)
     {
         printf("Initialisation de la file echoué.");
@@ -109,7 +145,7 @@ int main()
 
         printf("\n\n");
         printf("Remplissage de la pile...\n\n");
-        for(i = 1; i <= 8; i++)
+        for(i = 1; i <= taille_file; i++)
         {
             entree(file, i);
         }
@@ -129,7 +165,7 @@ int main()
 
         printf("\n\n\n\n");
         printf("Vidage de la file...\n\n");
-        for(i = 0; i < 8; i++)
+        for(i = 0; i < taille_file; i++)
         {
             if(sortie(file, &valSortie))
             {
