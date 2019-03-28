@@ -116,8 +116,10 @@ int main()
 
     printf("\n\n=====================TEST FILE=====================\n\n");
 
-    file_t* file = initialisation(8);
+    int taille_file = 8;
+    file_t* file = initialisation(taille_file);
     printf("\n\n");
+
     if(file == NULL)
     {
         printf("Initialisation de la file echoué.");
@@ -143,7 +145,7 @@ int main()
 
         printf("\n\n");
         printf("Remplissage de la pile...\n\n");
-        for(i = 1; i <= 8; i++)
+        for(i = 1; i <= taille_file; i++)
         {
             entree(file, i);
         }
@@ -163,7 +165,7 @@ int main()
 
         printf("\n\n\n\n");
         printf("Vidage de la file...\n\n");
-        for(i = 0; i < 8; i++)
+        for(i = 0; i < taille_file; i++)
         {
             if(sortie(file, &valSortie))
             {
