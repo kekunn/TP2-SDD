@@ -163,3 +163,30 @@ int sortie(file_t* file, T* val)
 
     return bienPasse;
 }
+
+
+/* -------------------------------------------------------------------- */
+/* afficherFile         Affiche le contenu de la file                   */
+/*                                                                      */
+/* Entree: file, adresse de la pile                                     */
+/*                                                                      */
+/* On affiche tout les element de la file                               */
+/*                                                                      */
+/* Lexique: i, vairable de position dans la file                        */
+/*                                                                      */
+/* -------------------------------------------------------------------- */
+void afficherFile(file_t* file)
+{
+    int i;
+    printf("[");
+    for(i = file->rangPremier; i < file->rangPremier + file->compteur; i++)
+    {
+        printf(FORMAT, file->tab[i% file->tailleMax]);
+        
+        if (i != file->rangPremier + file->compteur - 1)
+        {
+            printf(",");
+        }
+    }
+    printf("]\n");
+}

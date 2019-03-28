@@ -111,37 +111,47 @@ void TRUC_ite (int i, int n, int* T)
     int              fin = 0;
     int              ok;
 
-    while(!fin)
+    if (p && p2)//Si les deux listes ont bien été alloué
     {
-        if( il != n-1 && j < n)
+        while(!fin)
         {
-            while (j < n)
+            if( il < n && j < n)
             {
+                while (j < n)
+                {
+                    Inverser(il, j, T);
+                    empiler(p, j);
+                    empiler(p2, il);
+                    il++;
+                    j = il;
+                }
+            }
+
+            if(il == n)
+            {
+                Affichage(n, T);
+            }
+
+            if(pileVide(p))
+            {
+                fin = 1;
+            }
+            else
+            {
+                depiler(p, &j, &ok);
+                depiler(p2, &il, &ok);
+                //Pas besoin de verifier si le depilement c'est bien passer car les piles ne sont pas vides
                 Inverser(il, j, T);
-                empiler(p, j);
-                empiler(p2, il);
-                il++;
-                j = il;
+                j++;
             }
         }
+        
+        libererPile(p);
+        libererPile(p2);
 
-        if(il == n-1)
-        {
-            Affichage(n, T);
-        }
-
-        if(pileVide(p))
-        {
-            fin = 1;
-        }
-        else
-        {
-            depiler(p, &j, &ok);
-            depiler(p2, &il, &ok);
-            Inverser(il, j, T);
-            j++;
-        }
     }
-    libererPile(&p);
-    libererPile(&p2);
+    else
+    {
+        printf("Erreur d'initialisation des piles\n");
+    }
 }

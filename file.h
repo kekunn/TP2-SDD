@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define format "%d\n"
+#define FORMAT "%d"
 typedef int T; 
 
 struct file
@@ -16,11 +16,12 @@ struct file
 };
 typedef struct file file_t;
 
-file_t* initialisation(int tailleMaxUser);
-int fileVide(file_t*);
-int filePlein(file_t*);
-void freedom(file_t* file);
-int entree(file_t*, int);
-int sortie(file_t*, T*);
+file_t* 	initialisation	(int tailleMaxUser);
+int 		fileVide		(file_t*);
+int 		filePlein		(file_t*);
+void 		freedom			(file_t* file);
+int 		entree			(file_t*, int);
+int 		sortie			(file_t*, T*);
+void 		afficherFile	(file_t* file);
 
 #endif

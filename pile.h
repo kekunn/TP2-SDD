@@ -1,7 +1,7 @@
 #ifndef pile_H
 
 #define pile_H
-#define FORMAT "%d\n"
+#define FORMAT "%d"
 
 typedef int element_pile;
 
@@ -19,7 +19,7 @@ int      pilePlein      (pile_t *p);
 int      empiler        (pile_t *p, element_pile valeur);
 void     depiler        (pile_t *p, element_pile *res, int *reussi);
 void     sommet         (pile_t *p, element_pile *res, int *reussi);
-void     libererPile    (pile_t **p);
-void     afficherPile   (pile_t * p);
+void     libererPile    (pile_t *p);
+void     afficherPile   (pile_t *p);
 
 #endif

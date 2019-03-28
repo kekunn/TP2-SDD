@@ -160,15 +160,15 @@ void sommet(pile_t *p, element_pile *res, int *reussi)
 /* structure de la pile                                                 */
 /*                                                                      */
 /* -------------------------------------------------------------------- */
-void libererPile(pile_t **p)
+void libererPile(pile_t *p)
 {
-    free((*p)->valeurs);
-    free(*p);
+    free(p->valeurs);
+    free(p);
 }
 
 
 /* -------------------------------------------------------------------- */
-/* initPile                   Initialise une pile                       */
+/* afficherPile         Affiche le contenu de la pile                   */
 /*                                                                      */
 /* Entree: p, adresse de la pile                                        */
 /*                                                                      */
@@ -180,8 +180,15 @@ void libererPile(pile_t **p)
 void afficherPile(pile_t * p)
 {
     int i;
-    for (i = p->rang_sommet; i > 0; i--)
+    printf("[");
+    for (i = p->rang_sommet; i >= 0; i--)
     {
         printf(FORMAT, (p->valeurs)[i]);
+
+        if (i != 0)
+        {
+            printf(",");
+        }
     }
+    printf("]\n");
 }

@@ -1,21 +1,88 @@
+#include <stdio.h>
+#include "pile.h"
 #include "file.h"
+#include "truc.h"
 
 int main()
 {
-    int tailleMax;
-    int i;
-    int j;
-    int vide;
-    int plein;
-    int temp;
-    int ok;
-    int valSortie;
-    file_t* file;
-    
 
-    printf("Veuillez rentrez la taille max de la pile:\n");
-    scanf("%d", &tailleMax);
-    file = initialisation(tailleMax);
+    printf("=====================TEST TRUC=====================\n\n");
+
+    int tab[4] = {1, 2, 3};
+    
+    printf("\n\nTRUC RECURSIF\n");
+    TRUC_rec(1, 3, tab);
+
+    printf("\n\nTRUC ITERATIF\n");
+    TRUC_ite(1, 3, tab);
+
+
+
+
+    printf("\n\n=====================TEST PILE=====================\n\n");
+
+    pile_t * p = initPile(6);
+
+    if(p)
+    {
+        int ok;
+        int temp;
+
+        if (pileVide(p))
+        {
+            printf("Pile vide\n");
+        }
+        empiler (p, 1);
+        depiler (p, &temp, &ok);
+
+        if(ok)
+        {
+            printf("Valeur dépilé : %d\n", temp);
+        }
+
+        if(pileVide(p))
+        {
+            printf("Pile vide\n");
+        }
+
+        empiler(p, 1);
+        empiler(p, 8); 
+        empiler(p, 12); 
+        empiler(p, 33); 
+        empiler(p, 2); 
+        empiler(p, 17);
+
+        if(pilePlein(p))
+        {
+            printf("Pile pleine\n");
+        }
+
+        printf("Contenu de la pile: \n");
+        afficherPile(p);
+
+        if(!empiler(p, 8))
+        {
+            printf("\nImpossible d'empiler l'element: pile pleine\n");
+        }  
+        
+        sommet(p, &temp, &ok);
+
+
+
+        if(ok)
+        {
+            printf("\nValeur du sommet de la pile: %d", temp);
+        }
+
+        libererPile(p);
+    }
+
+
+
+
+    printf("\n\n=====================TEST FILE=====================\n\n");
+
+    file_t* file = initialisation(8);
     printf("\n\n");
     if(file == NULL)
     {
@@ -24,81 +91,117 @@ int main()
     else
     {
         printf("Intitialisation de la file réussis.");
-    }
-    printf("\n\n\n\n");
-    vide=fileVide(file);
-    if(vide)
-    {
-        printf("La file est bien vide.");
-    }
-    else
-    {
-        printf("Oups la file n'est pas vide.");
-    }  
-    printf("\n\n\n\n");
-    printf("Remplissage de la pile...\n\n\n\n");
-    for(i=1;i<=tailleMax;i++)
-    {
-        entree(file, i);
-    }
-    printf("Affichage de la file:\n\n");
-    printf("[");
-    for(i=0;i<tailleMax;i++)
-    {
-        printf(" %d,", file->tab[i]);
-    }
-    printf("]\n\n\n\n");
+        int i;
+        int valSortie;
+    
+        printf("\n\n");
 
-    plein=filePlein(file);
-    if(plein)
-    {
-        printf("La file est bien pleine.");
-    }
-    else
-    {
-        printf("Oups la file n'est pas pleine.");
-    }  
-    printf("\n\n\n\n");
-    printf("Vidage de la file...\n\n");
-    temp=tailleMax;
-    for(i=0;i<tailleMax;i++)
-    {
-        if(ok=sortie(file, &valSortie))
+
+        if(fileVide(file))
         {
-            printf("[");
-            for(j=file->rangPremier;j<file->rangPremier+file->compteur;j++)
-            {
-                printf(" %d,", file->tab[j% file->tailleMax]);
-            }
-            printf("]\n\n");
-            printf("La valeur sortie est: %d\n\n\n\n", valSortie);
+            printf("La file est bien vide.");
         }
         else
         {
-            printf("Oups une erreur est survenue.\n\n\n\n");
+            printf("Oups la file n'est pas vide.");
+        }  
+
+
+        printf("\n\n");
+        printf("Remplissage de la pile...\n\n");
+        for(i = 1; i <= 8; i++)
+        {
+            entree(file, i);
         }
+        printf("Affichage de la file:\n\n");
+        afficherFile(file);
+
+
+        if(filePlein(file))
+        {
+            printf("La file est bien pleine.");
+        }
+        else
+        {
+            printf("Oups la file n'est pas pleine.");
+        }  
+
+
+        printf("\n\n\n\n");
+        printf("Vidage de la file...\n\n");
+        for(i = 0; i < 8; i++)
+        {
+            if(sortie(file, &valSortie))
+            {
+                afficherFile(file);
+                printf("La valeur sortie est: %d\n\n", valSortie);
+            }
+            else
+            {
+                printf("Oups une erreur est survenue.\n\n");
+            }
+        }
+
+        if(fileVide(file))
+        {
+            printf("La file est bien vide.");
+        }
+        else
+        {
+            printf("Oups la file n'est pas vide.");
+        }  
         
-        
+        printf("\n\n");
+
+        printf("Suppression de la file..");
+
+        freedom(file);
     }
 
-    vide=fileVide(file);
-    if(vide)
+    printf("\n\n=====================INVERSION PILE AVEC FILE=====================\n\n");
+
+
+    pile_t    * p2 = initPile(6);
+    if (p)
     {
-        printf("La file est bien vide.");
+
+        empiler(p2, 1);
+        empiler(p2, 8); 
+        empiler(p2, 12); 
+        empiler(p2, 33); 
+        empiler(p2, 2); 
+
+        int         reussi;
+        int         valeur_recup;
+        file_t    * f = initialisation(p2->rang_sommet+1); //On initialise la file avec le nombre maximum d'element qu'elle contiendra
+
+        if(f)
+        {
+
+            printf("\nPile avant : \n");
+            afficherPile(p2);
+
+            while(!pileVide(p2))
+            {
+                depiler(p2, &valeur_recup, &reussi);
+                entree(f, valeur_recup);
+            }
+
+            while(!fileVide(f))
+            {
+                sortie(f, &valeur_recup);
+                empiler (p2, valeur_recup);
+            }
+
+            printf("\n\nPile après : \n");
+            afficherPile(p2);
+
+            freedom(f);
+        }
+
+        libererPile (p2);
     }
-    else
-    {
-        printf("Oups la file n'est pas vide.");
-    }  
-    printf("\n\n\n\n");
 
-    printf("Suppression de la file..");
-
-    freedom(file);
-    
-
-    
-
-    
-    
+    return 0;
 }
+
